@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  nginx:
+    build: ./docker/nginx
+    ports:
+        - "80:80"
+        - "443:443"
+    networks:
+      - development
+    volumes:
+      - .:/var/www
+      - ./logs/nginx:/var/log/nginx
+    environment:
+      - TZ=Europe/Berlin
+
+  php:
+    build: ./docker/php
+    networks:
+      - development
+    volumes:
+      - .:/var/www
+      - ./logs/php:/var/log/php
+    environment:
+      - TZ=Europe/Berlin
+
+  mysql:
+    image: mysql:5.6
+    ports:
+      - "3306:3306"
+    networks:
+      - development
+    environment:
+      - MYSQL_ROOT_PASSWORD=dev
+      - MYSQL_USER=dev
+      - MYSQL_PASSWORD=dev
+      - MYSQL_DATABASE=database
+      - TZ=Europe/Berlin
+    volumes:
+      - ./docker/mysql/config:/etc/mysql/conf.d
+      - ./docker/mysql/data:/docker-entrypoint-initdb.d
+      - ./logs/mysql:/var/log/mysql
+
+  smtp:
+    build: ./docker/smtp
+    ports:
+     - "25:25"
+    networks:
+      - development
+
+networks:
+  development:

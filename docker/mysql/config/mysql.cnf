@@ -1,0 +1,9 @@
+[mysqld]
+general_log                   = 1
+slow-query-log                = 1
+long_query_time               = 1
+log-queries-not-using-indexes = 1
+max_connections               = 800
+general_log_file              = /var/log/mysql/general.log
+log_error                     = /var/log/mysql/error.log
+slow-query-log-file           = /var/log/mysql/mysql-slow.log
