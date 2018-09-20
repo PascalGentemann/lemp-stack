@@ -5,6 +5,6 @@
     <title>Title</title>
 </head>
 <body>
-<p>Hello, world!</p>
+<p><?php echo 'Hello, world!'; ?></p>
 </body>
 </html>
